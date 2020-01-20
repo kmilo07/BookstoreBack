@@ -83,7 +83,7 @@ El reto consta de 3 actividades:
 En la clase BookRepositoryImpl existe un método que recupera todos los libros de la base de datos (Esto está expuesto en 
 la API mediante _/api/books/all_).
 
->**La actividad consiste en modificar lo que sea necesario para que se recuperen los libros ordenados alfabéticamente.** 
+**La actividad consiste en modificar lo que sea necesario para que se recuperen los libros ordenados alfabéticamente.** 
 
 <a name="actividad-2"></a>
 ### Actividad # 2 (Recuperar por Editorial)
