@@ -5,7 +5,9 @@ import java.util.List;
 import co.saimyr.bookstore.domain.Book;
 
 public interface BookRepository {
-	public List<Book> findAll();
-	public List<Book> findByAuthor(String author);
-	public Book save(Book b);
+	List<Book> findAll();
+	List<Book> findByAuthor(String author);
+	List<Book> findByPublisher(String publisher);
+	Book save(Book b);
+	Book delete(Book b);
 }
