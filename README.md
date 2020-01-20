@@ -70,7 +70,7 @@ tres paquetes llamados _co.saimyr.bookstore.domain_, _co.saimyr.bookstore.persis
     - _co.saimyr.bookstore.persistence.crud_:
         - _CrudBookRepository_: Es la interface que hereda de CrudRepository y se encarga de realizar sentencias en la 
         base de datos, ya sea mediante Query methods o @Query.
-    - _BookRepositoryImpl **ESTA CLASE INICIALMENTE CONTIENE ERRORES**_: Es la implementación de la interface _BookRepository_, 
+    - _BookRepositoryImpl **(ESTA CLASE INICIALMENTE CONTIENE ERRORES)**_: Es la implementación de la interface _BookRepository_, 
     internamente inyecta la interface _CrudBookRepository_ para comunicarse con la base de datos. Para corregir los errores 
     con lo que se crea esta clase debes implementar los métodos que no han sido implementados.
 - **co.saimyr.bookstore.web**
@@ -93,3 +93,5 @@ Crear un método GET en el controlador REST (y todo lo que haga falta) para cons
 <a name="actividad-3"></a>
 ### Actividad # 3 (Eliminar un Libro)
 Crear un método DELETE o GET en el controlador REST (y todo lo que haga falta) para eliminar un libro dado su ISBN.
+
+Tip: Deberías crear un método en la interface _BookRepository_ que recupere un libro por su ISBN.

@@ -9,5 +9,5 @@ public interface BookRepository {
 	List<Book> findByAuthor(String author);
 	List<Book> findByPublisher(String publisher);
 	Book save(Book b);
-	Book delete(Book b);
+	void delete(Book b);
 }
