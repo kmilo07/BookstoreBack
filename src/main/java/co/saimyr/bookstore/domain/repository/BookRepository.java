@@ -2,12 +2,12 @@ package co.saimyr.bookstore.domain.repository;
 
 import java.util.List;
 
-import co.saimyr.bookstore.domain.Book;
+import co.saimyr.bookstore.persistence.entity.BookEntity;
 
 public interface BookRepository {
-	List<Book> findAll();
-	List<Book> findByAuthor(String author);
-	List<Book> findByPublisher(String publisher);
-	Book save(Book b);
-	void delete(Book b);
+	List<BookEntity> findAll();
+	List<BookEntity> findByAuthor(String author);
+	List<BookEntity> findByPublisher(String publisher);
+	BookEntity save(BookEntity b);
+	void delete(BookEntity b);
 }

@@ -1,4 +1,4 @@
-package co.saimyr.bookstore.domain;
+package co.saimyr.bookstore.persistence.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BOOKS")
-public class Book {
+public class BookEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int isbn;

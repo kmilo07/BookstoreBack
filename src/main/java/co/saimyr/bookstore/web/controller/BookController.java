@@ -1,8 +1,8 @@
-package co.saimyr.bookstore.web;
+package co.saimyr.bookstore.web.controller;
 
 import java.util.List;
 
-import co.saimyr.bookstore.domain.Book;
+import co.saimyr.bookstore.persistence.entity.BookEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,17 +23,17 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Book> getAll() {
+	public List<BookEntity> getAll() {
 		return bookService.getAll();
 	}
 	
 	@GetMapping(value = "/author/{author}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Book> getByAuthor(@PathVariable("author") String author) {
+	public List<BookEntity> getByAuthor(@PathVariable("author") String author) {
 		return bookService.getAllByAuthor(author);
 	}
 	
 	@PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Book newBook(@RequestBody Book b) {
+	public BookEntity newBook(@RequestBody BookEntity b) {
 		return bookService.newBook(b);
 	}
 }

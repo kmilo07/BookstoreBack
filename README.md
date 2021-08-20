@@ -11,13 +11,15 @@ te presentamos un pequeño reto que nos ayudará a conocer adecuadamente tus ski
     - [Utilizando IntelliJ](#intellij) 
     - [Utilizando Eclipse](#eclipse)
 * [Reto](#reto)
-    - [Actividad # 1](#actividad-1) 
-    - [Actividad # 2](#actividad-2)
-    - [Actividad # 3](#actividad-3)
+  - [Actividad 1](#actividad-1)
+  - [Actividad 2](#actividad-2)
+  - [Actividad 3](#actividad-3)
+  - [Actividad 4](#actividad-4)
+  - [Actividad 5](#actividad-5)
 
 <a name="prerequisites"></a>
 ## Prerrequisitos
-* [Java JDK 8 o superior](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [Java JDK 11 o superior](https://adoptopenjdk.net/)
 * [IntelliJ](https://www.jetbrains.com/es-es/idea/download/) ó [Eclipse](https://www.eclipse.org/downloads/)
 * [Git](https://git-scm.com/downloads)
 
@@ -64,34 +66,50 @@ tres paquetes llamados _co.saimyr.bookstore.domain_, _co.saimyr.bookstore.persis
         - _BookRepository_: Interface que contiene TODAS las operaciones que debe implementar posteriormente el repositorio.
     - _co.saimyr.bookstore.domain.service_:
         - _BookService_: Es la clase de servicio de la aplicación. Es a donde el controlador REST debe realizar las peticiones.
-    - _Book_: Es el objeto del dominio; sobre el cual se realizarán todas las operaciones. También hace las veces de 
-    representación en Java (Entity bean) de la tabla en la base de datos. 
 - **co.saimyr.bookstore.persistence**
-    - _co.saimyr.bookstore.persistence.crud_:
-        - _CrudBookRepository_: Es la interface que hereda de CrudRepository y se encarga de realizar sentencias en la 
-        base de datos, ya sea mediante Query methods o @Query.
-    - _BookRepositoryImpl **(ESTA CLASE INICIALMENTE CONTIENE ERRORES)**_: Es la implementación de la interface _BookRepository_, 
-    internamente inyecta la interface _CrudBookRepository_ para comunicarse con la base de datos. Para corregir los errores 
+  - _BookRepositoryImpl **(ESTA CLASE INICIALMENTE CONTIENE ERRORES)**_: Es la implementación de la interface _BookRepository_,
+    internamente inyecta la interface _CrudBookRepository_ para comunicarse con la base de datos. Para corregir los errores
     con lo que se crea esta clase debes implementar los métodos que no han sido implementados.
+  - _co.saimyr.bookstore.persistence.crud_:
+    - _CrudBookRepository_: Es la interface que hereda de CrudRepository y se encarga de realizar sentencias en la
+  base de datos, ya sea mediante Query methods o @Query.
+  - _co.saimyr.bookstore.persistence.entity_:
+    - _BookEntity_: Es la entidad sobre el cual se realizarán todas las operaciones. También hace las veces de 
+  representación en Java (Entity bean) de la tabla en la base de datos.
 - **co.saimyr.bookstore.web**
     - _BookController_: Es el controlador REST de la aplicación.
  
-El reto consta de 3 actividades:  
+El reto consta de 4 actividades:  
 
 <a name="actividad-1"></a>
-### Actividad # 1 (Recuperar alfabéticamente)
+### Actividad 1 (Hacer refactor al proyecto para orientar al dominio)
+El proyecto actualmente está trabajando en todas sus capas con las entidades (exponiendo el BookEntity) mediante el controller.
+Cómo bien sabes esto representa una mala práctica ya que no es bueno exponer nuestros entities al exterior. 
+
+La actividad consiste en modificar lo que sea necesario para que la aplicación quede orientada al dominio (Debes añadir
+clases de dominio y/o DTO's). Para esto puedes ayudarte de herramientas como MapStruct o Dozer.
+
+<a name="actividad-2"></a>
+### Actividad 2 (Controlar las excepciones del proyecto)
+El proyecto no posee control de excepciones y cualquier error que ocurra provocará un error 500 que queremos evitar.
+
+La actividad consiste en agregar el control de excepciones con @RestControllerAdvice para las excepciones (que también debes crear)
+que se lanzan desde el dominio.
+
+<a name="actividad-3"></a>
+### Actividad 3 (Recuperar alfabéticamente)
 En la clase BookRepositoryImpl existe un método que recupera todos los libros de la base de datos (Esto está expuesto en 
 la API mediante _/api/books/all_).
 
 La actividad consiste en modificar lo que sea necesario para que se recuperen los libros ordenados alfabéticamente. 
 
-<a name="actividad-2"></a>
-### Actividad # 2 (Recuperar por Editorial)
+<a name="actividad-4"></a>
+### Actividad 4 (Recuperar por Editorial)
 Crear un método GET en el controlador REST (y todo lo que haga falta) para consultar los libros dado un nombre de editorial
 (publisher).
  
-<a name="actividad-3"></a>
-### Actividad # 3 (Eliminar un Libro)
+<a name="actividad-5"></a>
+### Actividad 5 (Eliminar un Libro)
 Crear un método DELETE o GET en el controlador REST (y todo lo que haga falta) para eliminar un libro dado su ISBN.
 
 Tip: Deberías crear un método en la interface _BookRepository_ que recupere un libro por su ISBN.
