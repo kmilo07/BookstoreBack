@@ -79,7 +79,7 @@ tres paquetes llamados _co.saimyr.bookstore.domain_, _co.saimyr.bookstore.persis
 - **co.saimyr.bookstore.web**
     - _BookController_: Es el controlador REST de la aplicación.
  
-El reto consta de 4 actividades:  
+El reto consta de 5 actividades:  
 
 <a name="actividad-1"></a>
 ### Actividad 1 (Hacer refactor al proyecto para orientar al dominio)
