@@ -9,5 +9,5 @@ public interface BookRepository {
 	List<BookEntity> findByAuthor(String author);
 	List<BookEntity> findByPublisher(String publisher);
 	BookEntity save(BookEntity b);
-	void delete(BookEntity b);
+	void deleteById(Integer id);
 }

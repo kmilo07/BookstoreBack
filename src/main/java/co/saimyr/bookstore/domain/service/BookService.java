@@ -21,4 +21,11 @@ public class BookService {
 	public BookEntity newBook(BookEntity b) {
 		return bookRepository.save(b);
 	}
+	public List<BookEntity> findByPublisher(String publisher){
+		return bookRepository.findByPublisher(publisher);
+	}
+
+	public void delete(Integer id){
+		bookRepository.deleteById(id);
+	}
 }

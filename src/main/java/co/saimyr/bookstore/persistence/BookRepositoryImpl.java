@@ -25,7 +25,17 @@ public class BookRepositoryImpl implements BookRepository {
 	}
 
 	@Override
+	public List<BookEntity> findByPublisher(String publisher) {
+		return h2BookRepo.findByPublisher(publisher);
+	}
+
+	@Override
 	public BookEntity save(BookEntity b) {
 		return h2BookRepo.save(b);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		h2BookRepo.deleteById(id);
 	}
 }
