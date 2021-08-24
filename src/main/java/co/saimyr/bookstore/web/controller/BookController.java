@@ -2,6 +2,7 @@ package co.saimyr.bookstore.web.controller;
 
 import java.util.List;
 
+import co.saimyr.bookstore.domain.dto.BookstoreDTO;
 import co.saimyr.bookstore.persistence.entity.BookEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,17 +24,17 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<BookEntity> getAll() {
+	public List<BookstoreDTO> getAll() {
 		return bookService.getAll();
 	}
 	
 	@GetMapping(value = "/author/{author}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<BookEntity> getByAuthor(@PathVariable("author") String author) {
-		return bookService.getAllByAuthor(author);
+	public List<BookstoreDTO> getByAuthor(@PathVariable("author") String author) {
+		return bookService. getAllByNoun(author);
 	}
 	
 	@PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public BookEntity newBook(@RequestBody BookEntity b) {
+	public BookstoreDTO newBook(@RequestBody BookstoreDTO b) {
 		return bookService.newBook(b);
 	}
 }
