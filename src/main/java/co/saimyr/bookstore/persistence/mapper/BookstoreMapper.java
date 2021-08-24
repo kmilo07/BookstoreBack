@@ -1,5 +1,6 @@
 package co.saimyr.bookstore.persistence.mapper;
 
+import co.saimyr.bookstore.domain.BookstoreDomain;
 import co.saimyr.bookstore.domain.dto.BookstoreDTO;
 import co.saimyr.bookstore.persistence.entity.BookEntity;
 import org.mapstruct.InheritInverseConfiguration;
@@ -16,12 +17,12 @@ public interface BookstoreMapper {
             @Mapping(source = "name", target = "noun"),
             @Mapping(source = "author", target = "writer"),
             @Mapping(source = "publisher", target = "publisher"),
-            @Mapping(source = "genre", target = "gender")
+            @Mapping(source = "genre", target = "gender"),
     })
-    BookstoreDTO toBookstoreDTO(BookEntity bookEntity);
-    List<BookstoreDTO> toBookstoresDTO(List<BookEntity> bookEntities);
+    BookstoreDomain toBookstore(BookEntity bookEntity);
+    List<BookstoreDomain> toBookstores(List<BookEntity> bookEntities);
 
     @InheritInverseConfiguration
-    BookEntity toBookstore(BookstoreDTO bookstoreDTO);
+    BookEntity toBookstore(BookstoreDomain bookstoreDomain);
 
 }

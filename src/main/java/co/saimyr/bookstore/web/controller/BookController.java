@@ -30,7 +30,7 @@ public class BookController {
 	
 	@GetMapping(value = "/author/{author}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<BookstoreDTO> getByAuthor(@PathVariable("author") String author) {
-		return bookService. getAllByNoun(author);
+		return bookService.getAllByAuthor(author);
 	}
 	
 	@PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

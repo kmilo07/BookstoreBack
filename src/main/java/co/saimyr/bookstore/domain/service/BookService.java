@@ -7,6 +7,7 @@ import co.saimyr.bookstore.domain.dto.BookstoreDTO;
 import co.saimyr.bookstore.domain.repository.BookRepository;
 import co.saimyr.bookstore.persistence.entity.BookEntity;
 import co.saimyr.bookstore.persistence.mapper.BookstoreMapper;
+import co.saimyr.bookstore.persistence.mapper.BookstoreMapperDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +15,23 @@ import org.springframework.stereotype.Service;
 public class BookService {
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private BookstoreMapperDTO bookstoreMapper;
 
 	public List<BookstoreDTO> getAll() {
-		return bookRepository.findAll();
+		return bookstoreMapper.toBookstoreDtos(bookRepository.findAll());
 	}
-	public Optional<List<BookstoreDTO>> getAllByAuthor(String author) {
-		return bookRepository.findByNoun(author);
+	public List<BookstoreDTO> getAllByAuthor(String author) {
+		return bookstoreMapper.toBookstoreDtos(bookRepository.findByNoun(author));
 	}
 	public BookstoreDTO newBook(BookstoreDTO b) {
-		return bookRepository.save(b);
+		return bookstoreMapper.toBookstoreDTO(bookRepository.save(bookstoreMapper.toBookstoreDomain(b)));
 	}
 	public List<BookstoreDTO> findByPublisher(String publisher){
-		return bookRepository.findByPublisher(publisher);
+		return bookstoreMapper.toBookstoreDtos(bookRepository.findByPublisher(publisher));
 	}
 
 	public void delete(Integer id){
-		bookRepository.deleteById(id);
+		bookRepository.delete(id);
 	}
 }

@@ -3,6 +3,7 @@ package co.saimyr.bookstore.persistence;
 import java.util.List;
 import java.util.Optional;
 
+import co.saimyr.bookstore.domain.BookstoreDomain;
 import co.saimyr.bookstore.domain.dto.BookstoreDTO;
 import co.saimyr.bookstore.persistence.entity.BookEntity;
 import co.saimyr.bookstore.persistence.mapper.BookstoreMapper;
@@ -21,30 +22,27 @@ public class BookRepositoryImpl implements BookRepository {
 	private BookstoreMapper bookstoreMapper;
 
 	@Override
-	public List<BookstoreDTO> findAll() {
-		List<BookEntity> bookEntities = (List<BookEntity>) h2BookRepo.findAll();
-		return bookstoreMapper.toBookstoresDTO((bookEntities);
+	public List<BookstoreDomain> findAll() {
+		return bookstoreMapper.toBookstores(h2BookRepo.findAllByOrderByNameAsc());
 	}
 	
 	@Override
-	public Optional<List<BookstoreDTO>> findByNoun(String author) {
-		Optional<List<BookEntity>> bookEntities = ;
-		return h2BookRepo.findByAuthor(author) h2BookRepo.findByAuthor(author);
+	public List<BookstoreDomain> findByNoun(String author) {
+		return bookstoreMapper.toBookstores(h2BookRepo.findByAuthor(author));
 	}
 
 	@Override
-	public Optional<List<BookEntity>> findByPublisher(String publisher) {
-		Optional<List<>>
-		return h2BookRepo.findByPublisher(publisher);
+	public List<BookstoreDomain> findByPublisher(String publisher) {
+		return  bookstoreMapper.toBookstores(h2BookRepo.findByPublisher(publisher));
 	}
 
 	@Override
-	public BookEntity save(BookstoreDTO b) {
-		return h2BookRepo.save(b);
+	public BookstoreDomain save(BookstoreDomain bookstoreDomain) {
+		return bookstoreMapper.toBookstore(h2BookRepo.save(bookstoreMapper.toBookstore(bookstoreDomain)));
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		h2BookRepo.deleteById(id);
 	}
 }
