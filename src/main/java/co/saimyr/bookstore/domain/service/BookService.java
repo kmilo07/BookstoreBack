@@ -31,7 +31,12 @@ public class BookService {
 		return bookstoreMapper.toBookstoreDtos(bookRepository.findByPublisher(publisher));
 	}
 
-	public void delete(Integer id){
+	public BookstoreDTO getBook(int id){
+		return bookstoreMapper.toBookstoreDTO(bookRepository.getBook(id));
+	}
+
+	public boolean delete(Integer id){
 		bookRepository.delete(id);
+		return true;
 	}
 }

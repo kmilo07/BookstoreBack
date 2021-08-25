@@ -6,13 +6,7 @@ import co.saimyr.bookstore.domain.dto.BookstoreDTO;
 import co.saimyr.bookstore.persistence.entity.BookEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import co.saimyr.bookstore.domain.service.BookService;
 
@@ -29,12 +23,27 @@ public class BookController {
 	}
 	
 	@GetMapping(value = "/author/{author}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<BookstoreDTO> getByAuthor(@PathVariable("author") String author) {
-		return bookService.getAllByAuthor(author);
+	public List<BookstoreDTO> getByAuthor(@PathVariable("author") String writer) {
+		return bookService.getAllByAuthor(writer);
 	}
 	
 	@PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public BookstoreDTO newBook(@RequestBody BookstoreDTO b) {
-		return bookService.newBook(b);
+	public BookstoreDTO newBook(@RequestBody BookstoreDTO book) {
+		return bookService.newBook(book);
 	}
+	@GetMapping(value = "/publisher/{publisher}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<BookstoreDTO> getByPublisher(@PathVariable("publisher") String publisher){
+		return bookService.findByPublisher(publisher);
+	}
+
+	@GetMapping(value = "/book/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public BookstoreDTO getBook(@PathVariable("id") int id){
+		return bookService.getBook(id);
+	}
+
+	@DeleteMapping(value = "/delete/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
+	public void deleteBook(@PathVariable("id") int id ){
+		bookService.delete(id);
+	}
+
 }
