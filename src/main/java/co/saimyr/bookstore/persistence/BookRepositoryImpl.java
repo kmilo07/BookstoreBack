@@ -1,8 +1,12 @@
 package co.saimyr.bookstore.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
+import co.saimyr.bookstore.domain.BookstoreDomain;
+import co.saimyr.bookstore.domain.dto.BookstoreDTO;
 import co.saimyr.bookstore.persistence.entity.BookEntity;
+import co.saimyr.bookstore.persistence.mapper.BookstoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,28 +18,39 @@ public class BookRepositoryImpl implements BookRepository {
 	@Autowired
 	private CrudBookRepository h2BookRepo;
 
+	@Autowired
+	private BookstoreMapper bookstoreMapper;
+
 	@Override
-	public List<BookEntity> findAll() {
-		return (List<BookEntity>) h2BookRepo.findAll();
+	public List<BookstoreDomain> findAll() {
+		return bookstoreMapper.toBookstores(h2BookRepo.findAllByOrderByNameAsc());
 	}
 	
 	@Override
-	public List<BookEntity> findByAuthor(String author) {
-		return h2BookRepo.findByAuthor(author);
+	public List<BookstoreDomain> findByNoun(String author) {
+		return bookstoreMapper.toBookstores(h2BookRepo.findByAuthor(author));
 	}
 
 	@Override
-	public List<BookEntity> findByPublisher(String publisher) {
-		return h2BookRepo.findByPublisher(publisher);
+	public List<BookstoreDomain> findByPublisher(String publisher) {
+		return  bookstoreMapper.toBookstores(h2BookRepo.findByPublisher(publisher));
 	}
 
 	@Override
-	public BookEntity save(BookEntity b) {
-		return h2BookRepo.save(b);
+	public BookstoreDomain save(BookstoreDomain bookstoreDomain) {
+		return bookstoreMapper.toBookstore(h2BookRepo.save(bookstoreMapper.toBookstore(bookstoreDomain)));
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		h2BookRepo.deleteById(id);
+	public void delete(Integer id) {
+		BookstoreDomain bookstoreDomain = bookstoreMapper.toBookstore(h2BookRepo.findByIsbn(id));
+		if (bookstoreDomain!=null){
+			h2BookRepo.delete(bookstoreMapper.toBookstore(bookstoreDomain));
+		}
+	}
+
+	@Override
+	public BookstoreDomain getBook(int id) {
+		return bookstoreMapper.toBookstore(h2BookRepo.findByIsbn(id));
 	}
 }
