@@ -43,7 +43,10 @@ public class BookRepositoryImpl implements BookRepository {
 
 	@Override
 	public void delete(Integer id) {
-		h2BookRepo.deleteByisbn(id);
+		BookstoreDomain bookstoreDomain = bookstoreMapper.toBookstore(h2BookRepo.findByIsbn(id));
+		if (bookstoreDomain!=null){
+			h2BookRepo.delete(bookstoreMapper.toBookstore(bookstoreDomain));
+		}
 	}
 
 	@Override

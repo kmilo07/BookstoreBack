@@ -39,14 +39,14 @@ public class BookController {
 		return new ResponseEntity<>(bookService.findByPublisher(publisher), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/book/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<BookstoreDTO> getBook(@PathVariable("id") int id){
-		return new ResponseEntity<>(bookService.getBook(id),HttpStatus.OK);
+	@GetMapping(value = "/book/{isbnId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<BookstoreDTO> getBook(@PathVariable("isbnId") int isbnId){
+		return new ResponseEntity<>(bookService.getBook(isbnId),HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/delete/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
-	public ResponseEntity<Void> deleteBook(@PathVariable("id") int id ){
-		bookService.delete(id);
+	@DeleteMapping(value = "/{isbnId}")
+	public ResponseEntity<Void> deleteBook(@PathVariable("isbnId") int isbnId ){
+		bookService.delete(isbnId);
 		return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
 	}
 
