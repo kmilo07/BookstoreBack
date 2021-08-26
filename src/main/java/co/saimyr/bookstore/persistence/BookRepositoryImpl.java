@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import co.saimyr.bookstore.domain.BookstoreDomain;
 import co.saimyr.bookstore.domain.dto.BookstoreDTO;
+import co.saimyr.bookstore.domain.exception.BookException;
+import co.saimyr.bookstore.domain.exception.ResourceNotFoundException;
 import co.saimyr.bookstore.persistence.entity.BookEntity;
 import co.saimyr.bookstore.persistence.mapper.BookstoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,12 @@ public class BookRepositoryImpl implements BookRepository {
 		BookstoreDomain bookstoreDomain = bookstoreMapper.toBookstore(h2BookRepo.findByIsbn(id));
 		if (bookstoreDomain!=null){
 			h2BookRepo.delete(bookstoreMapper.toBookstore(bookstoreDomain));
+		}
+		else{
+			String message = "No se ha encontrado el libro";
+			BookException bookException = new BookException();
+			ResourceNotFoundException resourceNotFoundException = new ResourceNotFoundException(message);
+			bookException.resourceNotFoundException(resourceNotFoundException);
 		}
 	}
 
