@@ -30,12 +30,12 @@ public class BookRepositoryImpl implements BookRepository {
 	
 	@Override
 	public List<BookstoreDomain> findByNoun(String author) {
-		return bookstoreMapper.toBookstores(h2BookRepo.findByAuthor(author));
+		return bookstoreMapper.toBookstores(h2BookRepo.findByAuthorOrderByNameAsc(author));
 	}
 
 	@Override
 	public List<BookstoreDomain> findByPublisher(String publisher) {
-		return  bookstoreMapper.toBookstores(h2BookRepo.findByPublisher(publisher));
+		return  bookstoreMapper.toBookstores(h2BookRepo.findByPublisherOrderByNameAsc(publisher));
 	}
 
 	@Override

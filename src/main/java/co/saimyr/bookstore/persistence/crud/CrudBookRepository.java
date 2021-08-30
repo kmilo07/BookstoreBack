@@ -8,8 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CrudBookRepository extends CrudRepository<BookEntity, Integer> {
 	List<BookEntity> findAllByOrderByNameAsc();
-	List<BookEntity> findByAuthor(String author);
-	List<BookEntity> findByPublisher(String publisher);
+	List<BookEntity> findByAuthorOrderByNameAsc(String author);
+	List<BookEntity> findByPublisherOrderByNameAsc(String publisher);
 	BookEntity findByIsbn(Integer id);
 	void delete(BookEntity bookEntity);
 }
