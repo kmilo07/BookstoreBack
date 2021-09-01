@@ -3,7 +3,8 @@ package co.saimyr.bookstore.web.controller;
 import java.util.List;
 
 import co.saimyr.bookstore.domain.dto.BookstoreDTO;
-import co.saimyr.bookstore.persistence.entity.BookEntity;
+import co.saimyr.bookstore.domain.exception.BookException;
+import co.saimyr.bookstore.domain.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,13 +42,29 @@ public class BookController {
 
 	@GetMapping(value = "/book/{isbnId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<BookstoreDTO> getBook(@PathVariable("isbnId") int isbnId){
-		return new ResponseEntity<>(bookService.getBook(isbnId),HttpStatus.OK);
+		BookstoreDTO bookData = bookService.getBook(isbnId);
+		if(bookData != null){
+			return new ResponseEntity<>(bookData,HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping(value = "/{isbnId}")
 	public ResponseEntity<Void> deleteBook(@PathVariable("isbnId") int isbnId ){
-		bookService.delete(isbnId);
-		return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+		BookstoreDTO bookData = bookService.getBook(isbnId);
+		if(bookData != null){
+			bookService.delete(isbnId);
+			return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+		}
+		else{
+			String message = "No se ha encontrado el libro";
+			BookException bookException = new BookException();
+			ResourceNotFoundException resourceNotFoundException = new ResourceNotFoundException(message);
+			bookException.resourceNotFoundException(resourceNotFoundException);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

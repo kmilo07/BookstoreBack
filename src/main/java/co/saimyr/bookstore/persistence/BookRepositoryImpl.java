@@ -46,15 +46,8 @@ public class BookRepositoryImpl implements BookRepository {
 	@Override
 	public void delete(Integer id) {
 		BookstoreDomain bookstoreDomain = bookstoreMapper.toBookstore(h2BookRepo.findByIsbn(id));
-		if (bookstoreDomain!=null){
-			h2BookRepo.delete(bookstoreMapper.toBookstore(bookstoreDomain));
-		}
-		else{
-			String message = "No se ha encontrado el libro";
-			BookException bookException = new BookException();
-			ResourceNotFoundException resourceNotFoundException = new ResourceNotFoundException(message);
-			bookException.resourceNotFoundException(resourceNotFoundException);
-		}
+		h2BookRepo.delete(bookstoreMapper.toBookstore(bookstoreDomain));
+
 	}
 
 	@Override
